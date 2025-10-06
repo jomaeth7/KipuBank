@@ -49,8 +49,9 @@ Este contrato fue desarrollado y desplegado utilizando Foundry. Se desplego en l
 1. Compilacion del contrato
 
 2.Configuracion de variables sensibles
- se configuro con mi clave privada de Metamask. PRIVATE_KEY=mi_claveprivada_metamask
+Se configuro con mi clave privada de Metamask. 
 URL de despliegue. RPC_URL=https://sepolia.infura.io/v3/tu_api_key
+Esto se realizo en un archivo .env con la siguiente nformacion: PRIVATE_KEY=claveprivada_metamask
 
 3.Ejecucion  del script de despliegue
 bash
