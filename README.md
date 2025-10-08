@@ -16,6 +16,11 @@ Hash de la transacción: 0x64b8a4be6d4abc0e5ccbdf424c42e1ab8c32aa87e0bd3b6358eaf
 
 Gas pagado: 0.000000558262490301 ETH
 
+🔐 Verificación de autoría
+
+Este contrato fue desplegado desde mi wallet personal de Metamask: 0xB8ca00E6a515Aa237F8885f8FFB29A5A70Ddca9e
+
+
 ⚙️ Constructor
 
 constructor(uint256 _withdrawLimit, uint256 _bankCap)
@@ -50,6 +55,7 @@ _safeTransfer(address to, uint256 amount), de tipo private, permite la transfere
 
 
 📢 Eventos
+
 Deposited(address indexed user, uint256 amount)
 
 Withdrawn(address indexed user, uint256 amount)
@@ -98,4 +104,6 @@ URL de despliegue. RPC_URL=https://sepolia.infura.io/v3/tu_api_key
 Esto se realizo en un archivo .env con la siguiente nformacion: PRIVATE_KEY=claveprivada_metamask
 
 🧠 Autor
-Jose Maria Meijide Rodriguez. Proyecto académico para portafolio Web3
+Jose Maria Meijide Rodriguez
+
+Proyecto académico para portafolio Web3
