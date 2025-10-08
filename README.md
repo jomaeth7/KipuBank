@@ -1,7 +1,9 @@
 🏦 KipuBank – Contrato inteligente de bóveda personal con límites
+
 KipuBank es un contrato inteligente en Solidity que permite a los usuarios depositar y retirar ETH dentro de una bóveda personal, respetando límites definidos por transacción y un tope global de depósitos. Este contrato sigue buenas prácticas de seguridad, documentación NatSpec y está diseñado para producción.
 
 🚀 Despliegue
+
 Red: Sepolia Testnet
 
 Dirección del contrato: 0xeb0fe23e76f829b590baE0b92069D726c8EF87fC
@@ -17,11 +19,13 @@ Gas pagado: 0.000000558262490301 ETH
 ⚙️ Constructor
 
 constructor(uint256 _withdrawLimit, uint256 _bankCap)
+
 _withdrawLimit: Límite máximo de retiro por transacción (ej. 0.01 ETH)
 
 _bankCap: Tope global de depósitos permitidos en el contrato (ej. 0.1 ETH)
 
 🔐 Funcionalidad
+
 Los usuarios pueden depositar ETH en su bóveda personal.
 
 Pueden retirar ETH, pero solo hasta el límite por transacción.
@@ -34,39 +38,57 @@ Se lleva registro del número total de depósitos y retiros.
 
 🧪 Funciones principales
 
-Función	                                        Tipo	                                  Descripción
-deposit()	                                  external payable	              Deposita ETH en la bóveda del usuario
-withdraw(uint256 amount)	                      external	                  Retira una cantidad específica, respetando el límite
-getVaultBalance()	                            external view                 Devuelve el saldo actual del usuario
-_withdraw(uint256 amount)	                      private	                    Lógica interna de retiro con validaciones
-_safeTransfer(address to, uint256 amount)	      private	                    Transferencia segura de ETH
+deposit(), de tipo external payable, permite el deposita ETH en la bóveda del usuario
+
+withdraw(uint256 amount), de tipo external.	Retira una cantidad específica, respetando el límite
+
+getVaultBalance(), de tipo external view. Devuelve el saldo actual del usuario
+
+_withdraw(uint256 amount), de tipo private.	Permite la Lógica interna de retiro con validaciones
+
+_safeTransfer(address to, uint256 amount), de tipo private, permite la transferencia segura de ETH
 
 
 📢 Eventos
 Deposited(address indexed user, uint256 amount)
+
 Withdrawn(address indexed user, uint256 amount)
 
 ❌ Errores personalizados
+
 DepositLimitExceeded()
+
 WithdrawLimitExceeded()
+
 InsufficientBalance()
 
 🛡️ Seguridad y buenas prácticas
+
 Uso de errores personalizados en lugar de require con strings
+
 Patrón checks-effects-interactions
+
 Modificador withinCap para validar depósitos
+
 Transferencias nativas seguras con call
+
 Variables bien comentadas con NatSpec
+
 Convenciones de nombres claras y consistentes
 
 
 🧰 Herramientas utilizadas
+
 Foundry: framework de pruebas y despliegue
+
 forge: compilación y testeo
+
 anvil: nodo local
+
 cast: interacción con contratos
 
 Archivo .env para claves privadas y RPC
+
 Script de despliegue: script/Deploy.s.sol
 
 📚 Documentación oficial: Foundry Book
