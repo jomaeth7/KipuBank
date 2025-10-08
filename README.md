@@ -1,79 +1,79 @@
-# KipuBank – Contrato inteligente
+🏦 KipuBank – Contrato inteligente de bóveda personal con límites
+KipuBank es un contrato inteligente en Solidity que permite a los usuarios depositar y retirar ETH dentro de una bóveda personal, respetando límites definidos por transacción y un tope global de depósitos. Este contrato sigue buenas prácticas de seguridad, documentación NatSpec y está diseñado para producción.
 
-KipuBank es un contrato inteligente diseñado para facilitar micropréstamos entre usuarios en la blockchain. Permite depósitos, retiros y gestión de fondos con parámetros configurables.
+🚀 Despliegue
+Red: Sepolia Testnet
 
-## 🚀 Despliegue
-
-Contrato desplegado en la red Sepolia  
-📦 Dirección del contrato: `0xeb0fe23e76f829b590baE0b92069D726c8EF87fC`  
+Dirección del contrato: 0xeb0fe23e76f829b590baE0b92069D726c8EF87fC
 
 🔗 [Ver en Etherscan](https://sepolia.etherscan.io/address/0xeb0fe23e76f829b590baE0b92069D726c8EF87fC)
 
-## ⚙️ Constructor
+Código verificado: ✅
 
-```bash
-"10000000000000000"  # minLoanAmount: 0.01 ETH
-"100000000000000000" # maxLoanAmount: 0.1 ETH
+Hash de la transacción: 0x64b8a4be6d4abc0e5ccbdf424c42e1ab8c32aa87e0bd3b6358eaf69f784007a2
 
+Gas pagado: 0.000000558262490301 ETH
 
-🔍 Verificación
-Contrato verificado en Sepolia
+⚙️ Constructor
 
-⛽ Gas pagado: 0.000000558262490301 ETH
+constructor(uint256 _withdrawLimit, uint256 _bankCap)
+_withdrawLimit: Límite máximo de retiro por transacción (ej. 0.01 ETH)
 
-📄 Hash de la transacción: 0x64b8a4be6d4abc0e5ccbdf424c42e1ab8c32aa87e0bd3b6358eaf69f784007a2
+_bankCap: Tope global de depósitos permitidos en el contrato (ej. 0.1 ETH)
+
+🔐 Funcionalidad
+Los usuarios pueden depositar ETH en su bóveda personal.
+
+Pueden retirar ETH, pero solo hasta el límite por transacción.
+
+El contrato impide depósitos que excedan el tope global (bankCap).
+
+Se emiten eventos en cada depósito y retiro exitoso.
+
+Se lleva registro del número total de depósitos y retiros.
 
 🧪 Funciones principales
 
-*deposit(): permite al usuario depositar fondos
+Función	                                        Tipo	                                  Descripción
+deposit()	                                  external payable	              Deposita ETH en la bóveda del usuario
+withdraw(uint256 amount)	                      external	                  Retira una cantidad específica, respetando el límite
+getVaultBalance()	                            external view                 Devuelve el saldo actual del usuario
+_withdraw(uint256 amount)	                      private	                    Lógica interna de retiro con validaciones
+_safeTransfer(address to, uint256 amount)	      private	                    Transferencia segura de ETH
 
-*withdraw(amount): retira una cantidad específica
 
-*requestLoan(amount): solicita un préstamo
+📢 Eventos
+Deposited(address indexed user, uint256 amount)
+Withdrawn(address indexed user, uint256 amount)
 
-*repayLoan(): devuelve el préstamo
+❌ Errores personalizados
+DepositLimitExceeded()
+WithdrawLimitExceeded()
+InsufficientBalance()
 
-🧪 Herramientas utilizadas
-Proyecto desarrollado con Foundry, un toolkit rápido y modular para Ethereum:
+🛡️ Seguridad y buenas prácticas
+Uso de errores personalizados en lugar de require con strings
+Patrón checks-effects-interactions
+Modificador withinCap para validar depósitos
+Transferencias nativas seguras con call
+Variables bien comentadas con NatSpec
+Convenciones de nombres claras y consistentes
 
-forge: framework de pruebas y despliegue
 
-anvil: nodo local para simulaciones
-
+🧰 Herramientas utilizadas
+Foundry: framework de pruebas y despliegue
+forge: compilación y testeo
+anvil: nodo local
 cast: interacción con contratos
+
+Archivo .env para claves privadas y RPC
+Script de despliegue: script/Deploy.s.sol
 
 📚 Documentación oficial: Foundry Book
 
-Este contrato fue desarrollado y desplegado utilizando Foundry. Se desplego en la red Sepolia, y siguio estos pasos:
-
-1. Compilacion del contrato
-
-2.Configuracion de variables sensibles
-Se configuro con mi clave privada de Metamask. 
+Notas adicionales sobre el despligue: La compilacion se realizo con mi clave privada de Metamask. 
 URL de despliegue. RPC_URL=https://sepolia.infura.io/v3/tu_api_key
 Esto se realizo en un archivo .env con la siguiente nformacion: PRIVATE_KEY=claveprivada_metamask
 
-3.Ejecucion  del script de despliegue
-bash
-forge script script/Deploy.s.sol:DeployScript --rpc-url $RPC_URL --private-key $PRIV
-
-El script Deploy.s.sol se encuentra en la carpeta script
-🔹 El contrato se verificara en Etherscan con la configuracion de una API key (esta en desarrollo)
-
-🧪 Cómo interactuar con el contrato
-Una vez desplegado, puedes interactuar con el contrato desde Foundry (cast) o desde una interfaz web. Sus funciones principales:
-
-🔹 deposit()
-Permite al usuario depositar fondos en el contrato.
-
-🔹 withdraw(uint256 amount)
-Retira una cantidad específica de fondos.
-
-🔹 requestLoan(uint256 amount)
-Solicita un préstamo dentro de los límites definidos.
-
-🔹 repayLoan()
-Devuelve el préstamo recibido.
-
 🧠 Autor
-Jose Maria Meijide Rodriguez – Proyecto personal con fines academicos
+Jose Maria Meijide Rodriguez. Proyecto académico para portafolio Web3
